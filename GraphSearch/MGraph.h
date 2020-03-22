@@ -18,6 +18,7 @@ public:
     void CreateMGraph();
     void DFSTraverse();
     void BFSTraverse();
+    void MiniSpanTreePrim();  
 };
 
 #endif

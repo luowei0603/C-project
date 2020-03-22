@@ -5,11 +5,12 @@ int main()
 {
     MGraph a;
     a.CreateMGraph();
-    a.DFSTraverse();
+    a.MiniSpanTreePrim();
+   /* a.DFSTraverse();
     a.BFSTraverse();
 
     GraphAdjList b;
     b.CreateALGraph();
     b.DFSTraverse();
-    b.BFSTraverse();
+    b.BFSTraverse();*/
 }
