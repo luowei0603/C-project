@@ -5,8 +5,9 @@ int main()
 {
     MGraph a;
     a.CreateMGraph();
-    a.MiniSpanTreePrim();
-   /* a.DFSTraverse();
+    // a.MiniSpanTreePrim();
+    a.MiniSpanTreeKruskal();
+    /* a.DFSTraverse();
     a.BFSTraverse();
 
     GraphAdjList b;

@@ -30,6 +30,10 @@ void MGraph::CreateMGraph()
         cin >> x >> y >> weight;
         arc[x][y] = weight;
         arc[y][x] = arc[x][y];
+        Edge tmp;
+        tmp.start = x < y ? x : y;
+        tmp.end = x > y ? x : y;
+        edges.push_back(make_pair(tmp, weight)); //按照开始结束放入边集数组
     }
 }
 
@@ -136,4 +140,39 @@ void MGraph::MiniSpanTreePrim()
             }
         }
     }
+}
+
+int MGraph::Cmp(const pair<Edge, int> &lhs, const pair<Edge, int> &rhs)
+{
+    return lhs.second < rhs.second;
+}
+
+void MGraph::MiniSpanTreeKruskal()
+{
+    cout << "最小生成树为：" << endl;
+    sort(edges.begin(), edges.end(), Cmp); // 将边集数组按权值从小到大排列
+    int parent[MAXVEX];                    // 定义一个一维数组来判断是否形成环路
+    for (int i = 0; i < numVertexes; i++)
+    {
+        parent[i] = 0;
+    }
+    for (int i = 0; i < numEdges; i++)
+    {
+        int n = Find(parent, edges[i].first.start);
+        int m = Find(parent, edges[i].first.end);
+        if (n != m)
+        {                  // 如果n和m不相等，说明此边没有和现有生成树形成环路
+            parent[n] = m; //将此边的结尾顶点放到下标为起点的parent中，表示此边已在生成树集合中
+            cout << "(" << edges[i].first.start << "," << edges[i].first.end << "):" << edges[i].second << endl;
+        }
+    }
+}
+
+int MGraph::Find(int *parent, int f)
+{
+    while (parent[f] > 0)
+    {
+        f = parent[f];
+    }
+    return f;
 }
