@@ -5,10 +5,13 @@ int main()
 {
     MGraph a;
     a.CreateMGraph();
+   // a.ShortestPathFlyod();
+    a.ShortestPathDijkstra(0);
     // a.MiniSpanTreePrim();
-    a.MiniSpanTreeKruskal();
+    //a.MiniSpanTreeKruskal();
     /* a.DFSTraverse();
     a.BFSTraverse();
+    
 
     GraphAdjList b;
     b.CreateALGraph();

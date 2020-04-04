@@ -29,6 +29,8 @@ public:
     void BFSTraverse();
     void MiniSpanTreePrim();
     void MiniSpanTreeKruskal();
+    void ShortestPathDijkstra(int p);
+    void ShortestPathFlyod();  // Floyd算法，求网图中各顶点v到其余顶点w的最短lujingP[v][w]以及带权长度D[v][w]
 };
 
 #endif

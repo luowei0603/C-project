@@ -176,3 +176,150 @@ int MGraph::Find(int *parent, int f)
     }
     return f;
 }
+
+void MGraph::ShortestPathDijkstra(int p)
+{
+    for (int i = 0; i < numVertexes; i++)
+    {
+        for (int j = 0; j < numVertexes; j++)
+        {
+            if (arc[i][j] == INFINITY)
+            {
+                cout << 'M' << " ";
+            }
+            else
+            {
+                cout << arc[i][j] << " ";
+            }
+        }
+        cout << endl;
+    }
+    int k;
+    int min;
+    int patharc[numVertexes];         //用于存储最短路径下标的数组
+    int shortPatchTable[numVertexes]; //用于存储到各点最短路径的权值和
+    int final[numVertexes];           // final[w]=1，表示求得p到w的最短路径
+    for (int i = 0; i < numVertexes; i++)
+    {
+        final[i] = 0;                   //全部顶点初始化为未知最短路径的状态
+        shortPatchTable[i] = arc[p][i]; //将与p点有连线的顶点加上权值
+        patharc[i] = 0;                 //初始化路径数组为0
+    }
+    shortPatchTable[p] = 0; //p到p的路径为0
+    final[p] = 1;           //p到p不需要求路径
+
+    //开始主循环，每次求得p至某个顶点i的最短路径
+    for (int i = 1; i < numVertexes; i++)
+    {
+        min = INFINITY; //当前所知离p的最近距离
+        for (int j = 0; j < numVertexes; j++)
+        { //寻找距离p最近的点
+            if (!final[j] && shortPatchTable[j] < min)
+            {
+                k = j;
+                min = shortPatchTable[j]; // j点距离p更近
+            }
+        }
+        final[k] = 1; //目前找到的最近的顶点置为1
+        //修正当前最短路径及距离,此时已经找到了p和k的最短路径，对k与其他顶点的边进行计算，得到p与他们当前的最短距离
+        for (int j = 0; j < numVertexes; j++)
+        {
+            // 如果经过顶点k的路径比现在这条路径的长度短的话
+            if (!final[j] && (min + arc[k][j] < shortPatchTable[j]))
+            {
+                //说明找到了更短的路径，修改shortPatchTable和patharc;
+                shortPatchTable[j] = min + arc[k][j];
+                patharc[j] = k;
+            }
+        }
+    }
+    cout << "最短路径数组为：" << endl;
+    for (int i = 0; i < numVertexes; i++)
+    {
+        cout << patharc[i] << " ";
+    }
+    cout << endl;
+    cout << "最短路径权值数组为：" << endl;
+    for (int i = 0; i < numVertexes; i++)
+    {
+        cout << shortPatchTable[i] << " ";
+    }
+    cout << endl;
+    for (int i = 1; i < numVertexes; i++)
+    {
+        cout << "V0 -> V" << i << " weight: " << shortPatchTable[i];
+        cout << " path：" << i;
+        int k = i;
+        while (k != 0)
+        { //k不是起点坐标
+            cout << " <- " << patharc[k];
+            k = patharc[k];
+        }
+        cout << endl;
+    }
+}
+
+void MGraph::ShortestPathFlyod()
+{
+    int pathMatrix[numVertexes][numVertexes];
+    int shortPathTable[numVertexes][numVertexes];
+    for (int v = 0; v < numVertexes; v++)
+    {
+        for (int w = 0; w < numVertexes; w++)
+        {
+            shortPathTable[v][w] = arc[v][w]; //shortPathTable[v][w]的值即为对应点间的权值
+            pathMatrix[v][w] = w;
+        }
+    }
+
+    for (int k = 0; k < numVertexes; k++)
+    {
+        for (int v = 0; v < numVertexes; v++)
+        {
+            for (int w = 0; w < numVertexes; w++)
+            {
+                if (shortPathTable[v][w] > shortPathTable[v][k] + shortPathTable[k][w])
+                {
+                    //如果经过下标为k顶点路径比原先两点间路径更短，将当前两点间的权值设置为更小的一个
+                    shortPathTable[v][w] = shortPathTable[v][k] + shortPathTable[k][w];
+                    pathMatrix[v][w] = pathMatrix[v][k]; //路径设置为经过下标k的顶点
+                }
+            }
+        }
+    }
+    cout << "最短路径权值矩阵为：" << endl;
+    for (int v = 0; v < numVertexes; v++)
+    {
+        for (int w = 0; w < numVertexes; w++)
+        {
+            cout << shortPathTable[v][w] << " ";
+        }
+        cout << endl;
+    }
+    cout << "最短路径矩阵为：" << endl;
+    for (int v = 0; v < numVertexes; v++)
+    {
+        for (int w = 0; w < numVertexes; w++)
+        {
+            cout << pathMatrix[v][w] << " ";
+        }
+        cout << endl;
+    }
+    // 显示最短路径
+    for (int v = 0; v < numVertexes; v++)
+    {
+        for (int w = v + 1; w < numVertexes; w++)
+        {
+            cout << "V" << v << "-"
+                 << "V" << w << " weight: " << shortPathTable[v][w];
+            int k = pathMatrix[v][w];
+            cout << " path: " << v; // 打印源点
+            while (k != w)
+            { //如果路径顶点下标不是终点
+                cout << " -> " << k;
+                k = pathMatrix[k][w];
+            }
+            cout << " -> " << w << endl;
+        }
+    }
+}
