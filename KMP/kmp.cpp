@@ -1,3 +1,10 @@
+/*----------------------------
+j        0  1  2  3  4  5  6  7  8
+p        a  b  a  b  a  a  a  b  a
+next     -1 0  0  1  2  3  1  1  2
+nextval  -1 0  -1 0  -1 3  1  0  -1
+------------------------------*/
+
 #include <iostream>
 #include <string.h>
 using namespace std;
@@ -49,7 +56,7 @@ void GetNext(const char *p, int *next)
         }
         else
         {
-            k = next[k];
+            k = next[k]; // 若字符不相同，将j值回溯
         }
     }
 }
@@ -67,13 +74,14 @@ void GetNextval(const char *p, int *next)
         {
             ++j;
             ++k;
+            // 若当前字符与前缀字符不同，则当前的k为nextval在j位置上的值
             if (p[j] != p[k])
             {
                 next[j] = k;
             }
             else
             {
-                // 因为不能出现p[j] = p[ next[j ]]，所以当出现时需要继续递归，k = next[k] = next[next[k]]
+                // 如果与前缀字符相同，则将前缀字符的nextval值赋值给nextval在j位置的值
                 next[j] = next[k];
             }
         }
