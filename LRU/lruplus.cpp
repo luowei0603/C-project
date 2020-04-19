@@ -2,26 +2,27 @@
 #include <map>
 #include <list>
 #define INVALID 65535
-
+/*lru 模板*/
 using namespace std;
-
+template <typename T, typename V>
 struct Node
 {
-    int key;
-    int value;
-    Node(int _key, int _value) : key(_key), value(_value) {}
+    T key;
+    V value;
+    Node(T _key, V _value) : key(_key), value(_value) {}
 };
 
+template <typename T, typename V>
 class LruCache
 {
 private:
     int capicity; // LruCache的容量
-    list<Node> LruList;
-    map<int, list<Node>::iterator> LruMap;
+    list<Node<T, V>> LruList;
+    map<T, typename list<Node<T, V>>::iterator> LruMap;
 
 public:
     LruCache(int c) : capicity(c) {}
-    int get(int key)
+    V get(T key)
     {
         if (LruMap.find(key) == LruMap.end())
         { //没有找到
@@ -33,7 +34,7 @@ public:
         LruMap[key] = LruList.begin();
         return LruMap[key]->value;
     }
-    void set(int key, int value)
+    void set(T key, V value)
     {
         if (LruMap.find(key) == LruMap.end())
         {
@@ -43,7 +44,7 @@ public:
                 LruMap.erase(LruList.back().key);
                 LruList.pop_back();
             }
-            LruList.push_front(Node(key, value));
+            LruList.push_front(Node<T, V>(key, value));
             LruMap[key] = LruList.begin();
         }
         else
@@ -57,7 +58,7 @@ public:
 
 int main()
 {
-    LruCache lc(10);
+    LruCache<int, int> lc(10);
     for (int i = 0; i < 10; i++)
     {
         lc.set(i, i);
