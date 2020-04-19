@@ -18,7 +18,7 @@ class LruCache
 private:
     int capicity; // LruCache的容量
     list<Node<T, V>> LruList;
-    map<T, typename list<Node<T, V>>::iterator> LruMap;
+    map<T, typename list<Node<T, V>>::iterator> LruMap; // 这里加typename关键字，是为了声明这是::iterator是一个迭代器类型不是某个类的成员变量
 
 public:
     LruCache(int c) : capicity(c) {}
