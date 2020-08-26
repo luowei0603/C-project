@@ -311,7 +311,7 @@ void MGraph::ShortestPathFlyod()
         for (int w = v + 1; w < numVertexes; w++)
         {
             cout << "V" << v << "-"
-                 << "V" << w << " weight: " << shortPathTable[v][w];
+                 << "W" << w << " weight: " << shortPathTable[v][w];
             int k = pathMatrix[v][w];
             cout << " path: " << v; // 打印源点
             while (k != w)
