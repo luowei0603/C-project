@@ -26,9 +26,7 @@ table_driver:表驱动
 thread_loacl:线程私有数据
 
 thread_pool_c:c语言实现的线程池
-<<<<<<< HEAD
-so:动态库及动态库加载的一些练习
-=======
 
 c_include:关于c/c++头文件包含机制的一个探索
->>>>>>> b137bfe8efbb36a12d1cc1cc2aaaa3448fa42ea5
+
+so:关于动态库在编译时链接和在代码中指定加载的练习
