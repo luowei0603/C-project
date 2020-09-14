@@ -3,7 +3,6 @@
 
 typedef struct threadpool_t threadpool_t;
 
-
 /*创建线程池*/
 threadpool_t *threadpool_create(int min_thr_num, int max_thr_num, int queue_max_size);
 /*释放线程池*/
