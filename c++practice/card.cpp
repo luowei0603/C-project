@@ -1,4 +1,4 @@
-/* 银行卡交易系统 2019.12.08*/
+/* 脪酶脨脨驴篓陆禄脪脳脧碌脥鲁 2019.12.08*/
 #include<iostream>
 #include<string>
 #include<vector>
@@ -19,7 +19,7 @@ public:
     void ShowRecord();
 };
 
-int Card::sum=0; //静态变量，记录当前余额
+int Card::sum=0; //戮虏脤卢卤盲脕驴拢卢录脟脗录碌卤脟掳脫脿露卯
 
 Card::Card(){
     cout<<"call constriction"<<endl;
@@ -38,7 +38,7 @@ void Card::CardIn(int _money,char *_time){
 }
 void Card::CardOut(int _money,char *_time){
     if(_money>sum){
-        cout<<"当前余额为："<<sum<<"余额不足"<<endl;
+        cout<<"碌卤脟掳脫脿露卯脦陋拢潞"<<sum<<"脫脿露卯虏禄脳茫"<<endl;
     }
     else{
         string s_time(_time);
@@ -50,7 +50,7 @@ void Card::CardOut(int _money,char *_time){
 }
 void Card::ShowRecord(){
     int recordNum=time.size();
-    cout<<"  日期       存入       取出        余额 "<<endl;
+    cout<<"  脠脮脝脷       麓忙脠毛       脠隆鲁枚        脫脿露卯 "<<endl;
     for(int i=0;i<recordNum;i++){
         cout<<time[i]<<setw(10);
     if(money[i]>=0){
