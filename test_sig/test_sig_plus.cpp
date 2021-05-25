@@ -114,9 +114,11 @@ static void sig_handler(int signo) {
       break;
     case SIGSEGV:
       dump_stack();
+      raise(signo);
       break;
     case SIGABRT:
       dump_stack();
+      raise(signo);
       break;
     default:
       slog_write(LL_NOTICE, "sig_handler error signo:%d", signo);
@@ -133,8 +135,11 @@ static void signal_init() {
   signal(SIGPIPE, SIG_IGN);
 
   struct sigaction sa;
+  memset(&sa, 0, sizeof(sa));
   sa.sa_handler = sig_handler;
   sa.sa_flags = SA_RESETHAND;
+  sigemptyset(&sa.sa_mask);
+
   if (sigaction(SIGSEGV, &sa, NULL) < 0) {
     fprintf(stderr, "sigaction SIGSEGV failed:%s", strerror(errno));
     suicide();
