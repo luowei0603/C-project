@@ -30,17 +30,18 @@ int main() {
     int bufferSize = SOCKET_BUFFER_SIZE;
     pthread_t thread;
 
-    ret = socketpair(AF_UNIX, SOCK_SEQPACKET, 0, sockets);
+    // ret = socketpair(AF_UNIX, SOCK_SEQPACKET, 0, sockets);
+    ret = socketpair(AF_UNIX, SOCK_STREAM, 0, sockets);
     if (ret == -1) {
         printf("socketpair create error!\n");
         return -1;
     }
 
     // 设置socket描述符的选项
-    setsockopt(sockets[0], SOL_SOCKET, SO_SNDBUF, &bufferSize, sizeof(bufferSize));
-    setsockopt(sockets[0], SOL_SOCKET, SO_RCVBUF, &bufferSize, sizeof(bufferSize));
-    setsockopt(sockets[1], SOL_SOCKET, SO_SNDBUF, &bufferSize, sizeof(bufferSize));
-    setsockopt(sockets[1], SOL_SOCKET, SO_RCVBUF, &bufferSize, sizeof(bufferSize));
+    // setsockopt(sockets[0], SOL_SOCKET, SO_SNDBUF, &bufferSize, sizeof(bufferSize));
+    // setsockopt(sockets[0], SOL_SOCKET, SO_RCVBUF, &bufferSize, sizeof(bufferSize));
+    // setsockopt(sockets[1], SOL_SOCKET, SO_SNDBUF, &bufferSize, sizeof(bufferSize));
+    // setsockopt(sockets[1], SOL_SOCKET, SO_RCVBUF, &bufferSize, sizeof(bufferSize));
 
     pthread_create(&thread, NULL, thread_func, (void*)(&sockets[1]));
 
