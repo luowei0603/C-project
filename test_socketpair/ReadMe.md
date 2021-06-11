@@ -1,0 +1,1 @@
+socketpair测试，与pipe类似，但是是全双工通信
