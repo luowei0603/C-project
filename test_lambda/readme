@@ -1,0 +1,7 @@
+lambda test,output:
+arg=100
+a = 6
+b = 7
+c = 8
+d = 121
+f = 121
