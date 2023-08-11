@@ -31,7 +31,7 @@ int main() {
   int a = -5;
   int b = 5;
   AC_ASSERT(test(a));
-  printf("hello\n");
+  printf("hello1\n");
   AC_ASSERT(test(b));
   return 0;
 }
