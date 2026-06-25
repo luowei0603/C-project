@@ -32,6 +32,13 @@ public:
         }
     }
 
+    // 移动构造
+    SharedPtr(SharedPtr&& other) noexcept
+        : ptr_(other.ptr_), cb_(other.cb_) {
+        other.ptr_ = nullptr;
+        other.cb_ = nullptr;
+    }
+
     // 从 weak_ptr lock 构造
     SharedPtr(T* ptr, ControlBlock* cb) noexcept
         : ptr_(ptr), cb_(cb) {}
